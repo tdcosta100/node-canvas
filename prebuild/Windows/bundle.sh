@@ -12,12 +12,12 @@ unzip -u depends22_x64.zip
 }
 
 # case-insensitive intersection of 2nd column of depends.csv
-# and all files ending in .dll in the mingw64 directory
+# and all files ending in .dll in the ucrt64 directory
 copies=$(comm -12 \
   <(cat depends.csv | cut -d ',' -f2 | sed 's/"//g' | tr '[:upper:]' '[:lower:]' | sort) \
-  <(find /mingw64/bin -name '*.dll' -printf "%f\n" | tr '[:upper:]' '[:lower:]' | sort) \
+  <(find /ucrt64/bin -name '*.dll' -printf "%f\n" | tr '[:upper:]' '[:lower:]' | sort) \
 );
 
 for dll in $copies; do
-  cp /mingw64/bin/$dll build/Release
+  cp /ucrt64/bin/$dll build/Release
 done;
